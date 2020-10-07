@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wm.shirodemo.mapper.UserMapper">
+    <select id="getRolesByName" parameterType="String" resultType="String">
+        select t_role.role from t_role where id = (
+            select t_role_user.role_id from t_role_user where user_id in (
+                select t_user.id from t_user where username = #{username}
+            )
+        )
+    </select>
+</mapper>

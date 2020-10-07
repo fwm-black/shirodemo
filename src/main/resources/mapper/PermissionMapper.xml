@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wm.shirodemo.mapper.PermissionMapper">
+    <select id="getPermissionsByRoleId" resultType="String">
+        select t_permission.permission
+        from t_permission
+        where id in (
+            select t_permission_role.permission_id
+            from t_permission_role
+            where role_id
+        in
+        <foreach collection="array" item="roleIds" index="index" open="(" separator="," close=")">
+            #{roleIds}
+        </foreach>
+        )
+    </select>
+</mapper>
